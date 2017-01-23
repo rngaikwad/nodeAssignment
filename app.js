@@ -31,6 +31,11 @@ app.get('/landingpage2', routes.landingpage2Handler);
 app.get('/adminlandingpage', routes.adminlandingpageHandler);
 
 
+app.get('/edit', routes.editPageHandler);
+app.post('/saveChanges', routes.saveChangesHandler);
+app.get('/delete', routes.deletePageHandler);
+
+
 app.post('/auth', routes.authHandler);
 app.post('/adminauth', routes.adminauthHandler);
 app.get('/registerForm', routes.registerFormHandler);

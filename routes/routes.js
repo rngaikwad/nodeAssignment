@@ -2,7 +2,9 @@ var mongoose = require( 'mongoose' );
 var UserModel = mongoose.model( 'UserModel' );
 var FeedbackModel = mongoose.model( 'FeedbackModel' );
 var bcrypt = require('bcryptjs');
+var chalk = require('chalk');
 
+var gLoggedIN = 0;
 
 
 exports.adminloginHandler = function (req, res){
@@ -124,7 +126,7 @@ exports.userdetailsFormHandler = function(req, res){
 
 
    mongoose.model('UserModel').find({}, function(err, data){
-        console.log(">>>> " + data );
+        /*console.log(">>>> " + data );*/
 
          res.render("userdetails.handlebars", {data});
     });
@@ -135,7 +137,7 @@ exports.feedbackdetailsFormHandler = function(req, res){
 
 
    mongoose.model('FeedbackModel').find({}, function(err, data){
-        console.log(">>>> " + data );
+       /* console.log(">>>> " + data );*/
 
          res.render("feedbackdetails.handlebars", {data});
     });
@@ -230,3 +232,45 @@ exports.registerSubmitHandler = function(req, res){
        }
    });
 };//registerSubmitHandler
+
+
+exports.editPageHandler = function(req, res){
+  var userToEdit = req.query.name;
+  UserModel.findOne({name:userToEdit}, function(err, userRec){
+  if (!err){
+    console.log(chalk.yellow("Going to edit -> [" + userRec.name + " : " + userRec.location + "]"));
+    res.render('editPage.handlebars', {userRec: userRec, LoggedIN: gLoggedIN});
+  } 
+}); //TechModel.findOne
+}; //editPageHandler
+
+exports.saveChangesHandler = function(req, res){
+  var nameRequest = req.body.name;
+  var loctionRequest = req.body.location;
+  //console.log("Saving Edited records : " + techRequest + " : " + techDescrRequest);
+  var message;
+  //update rec through model
+  UserModel.update({name:nameRequest}, 
+                    {$set: { location: loctionRequest }}, 
+                    {multi:false}, function(err, updatedRec){
+   if(err){
+     message = '<span class="label label-danger">Update Failed</span>';
+     console.log(chalk.red(message));
+     res.render('message.handlebars', {message: message, LoggedIN: gLoggedIN});
+   }else{
+     message = '<span class="label label-success">A record saved succesfully</span>';
+     console.log(chalk.green(message));
+     res.render('message.handlebars', {message: message, LoggedIN: gLoggedIN});
+   }
+  });
+}; //saveChangesHandler
+
+exports.deletePageHandler = function(req, res){
+  var userToEdit = req.query.name;
+  UserModel.remove({name:userToEdit}, function(err, userRec){
+  if (!err){
+    var message = '<span class="label label-success">A record removed successfully</span>'
+    res.render('message.handlebars', {message: message, LoggedIN: gLoggedIN});
+  } 
+}); //TechModel.remove
+}; //editPageHandler

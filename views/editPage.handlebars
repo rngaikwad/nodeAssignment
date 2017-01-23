@@ -1,0 +1,29 @@
+ {{>head}}
+ <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <ul class="nav navbar-nav">
+       <li><a href="/adminlandingpage">Home</a></li>
+        <li><a href="/registerForm">Register</a></li>
+         <li><a href="/userdetailsForm">User Details</a></li>
+         <li><a href="/feedbackdetailsForm"> Feedback Details</a></li>
+          <li><a href="/adminlogout">Logout</a></li>
+      </ul>
+    </div>
+</div>
+ <div class="container">
+  <div class="row">
+  <br><br><br>
+  <form class="margin-base-vertical" method="post" action="/saveChanges">
+      <p class="input-group ">
+      Technology : <input type="text" class="form-control input-lg" name="name" readonly value="{{userRec.name}}" />
+      </p>
+      <p class="input-group ">
+      Description: <input type="text" required class="form-control input-lg" name="location" value="{{userRec.location}}" />
+      </p><br/>
+      <p class="text-center">
+      <button type="submit" class="btn btn-success btn-lg">Post Changes</button>
+      </p>
+  </form>
+ </div>
+</div>
+{{>jsIncludes}}
