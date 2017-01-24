@@ -7,12 +7,13 @@
  <div class="container">
   <div class="row">
   <br><br><br>
+  <h5 align="center" class="margin-base-vertical"><code>{{errorMessage}}</code></h5>
   <div class="col-md-4">
   </div>
-  <div class="col-md-4" style="border:solid 1px!important;">
-	<h5 align="center" class="margin-base-vertical"><code>{{errorMessage}}</code></h5>
+  <div class="col-md-4" style="border:solid 1px!important; background-color:grey!important">
+	
 	<form class="margin-base-vertical" method="post" action="/adminauth">
-          <p class="input-group ">
+          <p class="input-group " style="margin-top:20px!important;">
 			<span class="input-group-addon"><span class="icon-envelope"></span></span>
 			<input type="text" required class="form-control input-lg" name="nm" placeholder="Username" />
 		  </p>
